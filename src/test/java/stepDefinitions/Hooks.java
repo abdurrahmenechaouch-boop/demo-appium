@@ -75,8 +75,16 @@ public class Hooks {
 
         options.setApp("bs://c477df20a522ecf458492803855442374b90fa06");
         HashMap<String, Object> bstackOptions = new HashMap<>();
-        bstackOptions.put("userName", "chaouchabdurrahm_6xvBFi");
-        bstackOptions.put("accessKey", "a8j8jcCExys2MBwU3Lha");
+        String username = System.getenv("BROWSERSTACK_USERNAME");
+        String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+
+
+        if (username == null || accessKey == null) {
+            throw new RuntimeException("❌ BROWSERSTACK_USERNAME ou BROWSERSTACK_ACCESS_KEY non définis !");
+        }
+
+        bstackOptions.put("userName", username);
+        bstackOptions.put("accessKey", accessKey);
         bstackOptions.put("projectName", "Appium Cucumber Demo");
         bstackOptions.put("buildName", "Login Build 1");
         bstackOptions.put("sessionName", "Successful Login");

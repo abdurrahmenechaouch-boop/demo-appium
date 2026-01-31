@@ -1,33 +1,102 @@
-1️⃣ Démarrer l’émulateur Android
+ demo-Appium Test Automation
 
-👉 Vérifie d’abord qu’un device est lancé :
+Automatisation mobile Android avec Appium, Cucumber, JUnit et génération de rapports Allure.
+Support pour tests locaux et sur le cloud via BrowserStack.
 
-emulator -list-avds
+######################## Prérequis ################################################################################################
 
+Java 17 ou supérieur
 
-Lance ton émulateur (exemple) :
+Maven 3.9+
 
-emulator -avd Pixel_7_API_33
+Node.js (optionnel si Appium server local est utilisé)
 
+Appium server (local ou BrowserStack)
 
-Ou via Android Studio → Device Manager → ▶️
+Git
 
-Puis vérifie :
+Allure CLI (optionnel pour générer et ouvrir les rapports depuis le terminal)
 
-adb devices
+######################## Installation #############################################################################################
 
+Cloner le dépôt :
 
-Tu dois voir :
-
-emulator-5554   device
-
-2️⃣ Démarrer Appium Server (IMPORTANT)
-
-Avec Appium 2.x, PAS de /wd/hub ❌
-
-appium
+git clone https://github.com/TON_USERNAME/demo-appium.git
+cd demo-appium
 
 
-Tu dois voir dans les logs :
+Installer les dépendances Maven :
 
-Appium REST http interface listener started on http://127.0.0.1:4723
+mvn clean install
+
+######################## Exécution des tests ######################################################################################
+💻 Tests locaux
+
+Assure-toi que Appium server est lancé sur ton ordinateur (127.0.0.1:4723) :
+
+export RUN_ON_BROWSERSTACK=false
+mvn test
+
+🌐 Tests sur BrowserStack
+
+Définis tes identifiants BrowserStack et active l’exécution cloud :
+
+export BROWSERSTACK_USERNAME=ton_username
+export BROWSERSTACK_ACCESS_KEY=ton_access_key
+export RUN_ON_BROWSERSTACK=true
+mvn test
+
+
+Le flag RUN_ON_BROWSERSTACK permet de basculer entre exécution locale et cloud.
+
+######################## Configuration des variables d’environnement ##############################################################
+
+RUN_ON_BROWSERSTACK=true;BROWSERSTACK_USERNAME=ton_username;BROWSERSTACK_ACCESS_KEY=ton_access_key
+
+
+######################## Structure du projet ######################################################################################
+demo-appium/
+├─ src/
+│  ├─ main/
+│  │  └─ java/               # Code principal (drivers, utilitaires…)
+│  └─ test/
+│     ├─ java/               # Step definitions et Hooks
+│     └─ resources/          # Fichiers .feature et autres ressources de test
+│         └─ features/       # Scénarios Cucumber
+├─ pom.xml                   # Projet Maven
+├─ .gitignore
+└─ README.md
+
+######################## Allure Reports ###########################################################################################
+
+Les screenshots sont capturés automatiquement en cas d’échec et intégrés dans le rapport Allure.
+
+Compatible avec Scenario Outline, DataTables, Android 13 et UiAutomator2.
+
+######################## Commandes utiles #########################################################################################
+# Clean et build le projet
+mvn clean install
+
+# Exécuter les tests
+mvn test
+
+# Générer et ouvrir le rapport Allure automatiquement
+allure generate target/allure-results -o target/allure-report --clean
+allure open target/allure-report
+
+
+💡 Astuce : tu peux ajouter la génération Allure après chaque test dans Maven avec le plugin Allure Maven ou créer un alias bash.
+
+Badges & Status
+
+✅ Tests passés localement et sur BrowserStack
+
+📸 Screenshots sur échec automatiquement
+
+🧪 Compatible avec plusieurs utilisateurs via Scenario Outline
+
+👤 Auteur
+
+Abdurrahmene Chaouch
+
+[LinkedIn] (https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
