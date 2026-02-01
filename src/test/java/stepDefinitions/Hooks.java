@@ -6,38 +6,21 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
-
-
-import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
-
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import io.qameta.allure.Allure;
-import org.openqa.selenium.OutputType;
-
-import java.io.ByteArrayInputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
 
 
 public class Hooks {
 
-    public static AndroidDriver driver; // <-- plus de <WebElement>
+    public static AndroidDriver driver;
     public static boolean RUN_ON_BROWSERSTACK;
 
     @Before
     public void setUp() throws MalformedURLException {
-        // 🔹 Vérifie le flag d'environnement
+        // Le flag d'environnement
         String runOnBS = System.getenv("RUN_ON_BROWSERSTACK");
         RUN_ON_BROWSERSTACK = "true".equalsIgnoreCase(runOnBS);
 
@@ -78,7 +61,6 @@ public class Hooks {
         String username = System.getenv("BROWSERSTACK_USERNAME");
         String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
 
-
         if (username == null || accessKey == null) {
             throw new RuntimeException("❌ BROWSERSTACK_USERNAME ou BROWSERSTACK_ACCESS_KEY non définis !");
         }
@@ -108,7 +90,7 @@ public class Hooks {
         }
     }
 
-    // Méthode pour capturer et attacher le screenshot à Allure
+    // Le screenshot à Allure
     @Attachment(value = "{0}", type = "image/png")
     public byte[] takeScreenshot(String scenarioName) {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);

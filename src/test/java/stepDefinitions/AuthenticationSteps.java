@@ -1,6 +1,4 @@
 package stepDefinitions;
-
-import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import pages.LoginPage;
 import pages.HomePage;
@@ -14,7 +12,7 @@ public class AuthenticationSteps {
 
     @Given("I am on the login page")
     public void openLogin() {
-        assert authPage.isLoginPageDisplayed(): "Login page not displayed";
+        assert authPage.isLoginPageDisplayed(): "Login page is not displayed";
     }
 
     @When("I login with username {string} and password {string}")
@@ -24,5 +22,5 @@ public class AuthenticationSteps {
 
     @Then("the home page is displayed")
     public void verifyHomePage() {
-       assert homePage.isHomePageDisplayed():"Login page not displayed";  }
+       assert homePage.isHomePageDisplayed():"Home page is not displayed";  }
 }

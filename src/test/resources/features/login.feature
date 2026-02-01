@@ -10,6 +10,6 @@ Feature: Authentication
     Then the home page is displayed
 
     Examples:
-      | username         | password    |
-      | standard_user    | secret_sauce  |
-      | No_existing_user     | secret_sauce  |
+      | username         | password     |
+      | standard_user    | secret_sauce |
+      | No_existing_user | secret_sauce |
